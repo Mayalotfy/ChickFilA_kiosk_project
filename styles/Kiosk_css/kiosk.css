@@ -1,0 +1,253 @@
+h1 {
+    font-size: 30px;
+    text-align: center;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.leftText {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.b1 {
+    text-align: center;
+}
+
+.i1 {
+    width: 40%;
+}
+
+h2 {
+    font-size: 20px;
+}   
+h3 {
+    font-size: 19px;
+}   
+h4 {
+    margin-top: 10px;
+    font-size: 25px;
+    color: #3e3e3e;
+}   
+#c3 {
+    padding: 1%;
+}
+
+
+#r1 {
+    font-size: 20px;
+    text-align: center;
+}
+#c1 {
+    padding: 20px
+}
+#c2 {
+    /* margin: 3%; */
+    padding: 3%;
+    /* outline: #ff0000; */
+    /* border-style: double; */
+}
+/* .b1{
+    padding: 10px;
+    margin: 20px;
+    outline: none;
+    border-style: none;
+    background-color: #ffffff;
+} */
+.center_image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    object-fit: cover;
+}
+.title_image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* object-fit: cover; */
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.blocks li {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.blocks_a {
+    padding-top: 53px;
+    display: block;
+    width: 250px;
+    height: 330px;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    border-style:ridge;
+    border: none;
+    color: #000000;
+    text-align: center;
+    /* line-height: 150px; */
+    /* vertical-align: center; */
+    text-decoration: none;
+    font-size: 30px;
+    /* font-weight: bold; */
+    border-radius: 10px;
+}
+.blocks_cat {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    display: block;
+    /* width: 300px; */
+    height: 50px;
+    background-color: #ffffff;
+    border-color: #cdcdcd;
+    border-style:none;
+    color: #000000;
+    text-align: center;
+    /* line-height: 150px; */
+    /* vertical-align: center; */
+    text-decoration: none;
+    font-size: 30px;
+    /* font-weight: bold; */
+    border-radius: 10px;
+}
+.blocks_cat2 {
+    padding-top: 53px;
+    display: block;
+    width: 300px;
+    height: 160px;
+    background-color: #ffffff;
+    border-color: #cdcdcd;
+    border-style:ridge;
+    color: #000000;
+    text-align: center;
+    /* line-height: 150px; */
+    /* vertical-align: center; */
+    text-decoration: none;
+    font-size: 30px;
+    /* font-weight: bold; */
+    border-radius: 10px;
+}
+
+
+.blocks a:hover {
+    background-color: #979797;
+    color: #000000;
+    transform: scale(1.4);
+}
+
+.blocks_b:hover {
+    background-color: #979797;
+    color: #000000;
+    transform: scale(1.5);
+}
+
+.blocks_b {
+    padding: 10px;
+    margin: 5px;
+    display: block;
+    width: 130px;
+    height: 190px;
+    background-color: #ffffff;
+    border-color: #e0e0e0;
+    border-style:solid;
+    color: #000000;
+    text-align: center;
+    /* line-height: 150px; */
+    /* vertical-align: center; */
+    text-decoration: none;
+    font-size: 15px;
+    /* font-weight: bold; */
+    border-radius: 10px;
+}
+.blocks_clicked {
+    padding: 10px;
+    margin: 5px;
+    display: block;
+    width: 130px;
+    height: 160px;
+    background-color: #dfdfdf;
+    border-color: #c5c5c5;
+    border-style:ridge;
+    color: #6c6c6c;
+    text-align: center;
+    /* line-height: 150px; */
+    /* vertical-align: center; */
+    text-decoration: none;
+    font-size: 15px;
+    /* font-weight: bold; */
+    border-radius: 10px;
+}
+
+#footer {
+    height:110px;
+    margin: 0;
+    clear: both;
+    width:100%;
+    position: relative;
+}
+
+.selections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+
+.float{
+    margin-bottom: 70px;
+    position:fixed;
+    width:160px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:#ffffff;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #ffffff;
+    font-size:18px;
+    text-align: center;
+}
+
+.my-float{
+    margin-top:22px;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:18px;
+    font-style:normal;
+}
+
+
+.button2 {
+    background-color: #E60E33;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /* width:160px;
+    height:60px; */
+    font-size: 18px;
+    margin: 4px 2px;
+    border-radius: 50%;
+}
+
+
+.included.btn:hover {
+    color: #000 !important;
+    text-decoration: none;
+}

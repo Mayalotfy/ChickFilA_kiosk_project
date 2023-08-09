@@ -1,0 +1,78 @@
+/* Set a background color for the page */
+body {
+    background-color: #f2f2f2;
+}
+  
+/* Style the heading */
+h1 {
+font-size: 36px;
+text-align: center;
+margin-top: 30px;
+}
+
+/* Style the list of links */
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+/* Style each link as a big square button */
+.blocks li {
+    margin: 15px;
+
+}
+
+.blocks a {
+    display: block;
+    width: 240px;
+    height: 220px;
+    background-color: #E60E33;
+    color: #ffffff;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.blocks a:hover {
+    background-color: #000000;
+}
+
+.timestamp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: bold;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .modal h2 {
+    color: rgb(0, 0, 0);
+    font-size: 24px;
+  }
+  
+  .modal button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

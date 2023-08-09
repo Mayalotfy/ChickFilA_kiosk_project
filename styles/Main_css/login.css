@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 150px;
+    left: center;
+
+  }
+  
+  /* Style the form */
+  form {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    margin-top: 0px;
+  }
+  
+  /* Style the form labels and inputs */
+  label, input {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the submit and cancel buttons */
+  .button{
+    display: inline-block;
+    margin: 0 10px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover{
+    background-color: #666;
+    cursor: pointer;
+  }
+  
