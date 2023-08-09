@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .fixed-header {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>X and Z Reports</h1>
+        <button id="x-report-button" class="btn btn-danger">X Report</button>
+        <a href="{{ url_for('x_z_reports', report='z_report') }}" class="btn btn-danger">Z Report</a>
+        <a href="{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="fixed-header">
+                    <table id="table-headers" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Order Number</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Items</th>
+                                <th>Customizations</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <table id="x-report-table" class="table table-striped" style="display: none;">
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <table id="z-report-table" class="table table-striped" style="display: none;">
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#x-report-button').click(function() {
+                $('#z-report-table').hide();
+                $('#x-report-table').show();
+            });
+            $('a[href$="z_report"]').click(function() {
+                $('#x-report-table').hide();
+                $('#z-report-table').show();
+            });
+        });
+    </script>
+    
+</body>
+</html>

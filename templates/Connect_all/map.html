@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZOGOhsi4B7w3rA1UXM4694k1vISYoQSo&callback=initMap"
+    type="text/javascript"></script>
+    <script type="text/javascript">
+    function initMap() {
+        var location = {lat: {{code_lat}}, lng: {{code_lng}}};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            zoom: 16
+        });
+        var circle = new google.maps.Circle({
+            strokeColor: '#d0efff',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#2a9df4',
+            fillOpacity: 0.35,
+            map: map,
+            center: location,
+            radius: 100 // in meters
+        });
+        const marker = new google.maps.Marker({
+            position: {lat: {{code_lat}}, lng: {{code_lng}}},
+            map: map,
+            });
+            marker.addListener('click', function() {
+            const url = 'https://www.google.com/maps?rlz=1C5CHFA_enUS909US909&output=search&q=chick+fil+a+at+msc&entry=mc&sa=X&ved=2ahUKEwjZ_q_867b-AhX5ElkFHWHlDRAQ0pQJegQIDBAB' + marker.getPosition().lat() + ',' + marker.getPosition().lng();
+            window.open(url, '_blank');
+        });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    
+    <div id="map" style="width:100%; height:500px;"></div>
+</div>
+</body>
+</html>

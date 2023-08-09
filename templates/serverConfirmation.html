@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/server.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-djGMC+LRmJFyRd0o0x90I2+9QKjnmC/DcR6vEC17woZb8V3qGmuL5fr5pFFgJyqbB6rKlDxDfKYGv/DvGmxZJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Confirmation</title>
+</head>
+<body>
+    
+ >
+              <h2 style="margin-left: 30px; font-size:50px;">
+                Order Number is #{{ newOrder.ordernumber-1 }}</h2>
+    
+        
+    </nav>
+
+
+  
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZOGOhsi4B7w3rA1UXM4694k1vISYoQSo&callback=initMap"
+    type="text/javascript"></script>
+    <script type="text/javascript">
+        setTimeout(function() {
+          window.location.href = "{{ url_for('serverMenuCat', cat='Entrees') }}";
+        }, 10000); // 1 minute = 10 seconds = 60000 milliseconds
+    
+        function initMap() {
+            var location = {lat: {{code_lat}}, lng: {{code_lng}}};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: location,
+                zoom: 16
+            });
+            var circle = new google.maps.Circle({
+                strokeColor: '#d0efff',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#2a9df4',
+                fillOpacity: 0.35,
+                map: map,
+                center: location,
+                radius: 100 // in meters
+            });
+            const marker = new google.maps.Marker({
+                position: {lat: {{code_lat}}, lng: {{code_lng}}},
+                map: map,
+            });
+            marker.addListener('click', function() {
+                const url = 'https://www.google.com/maps?rlz=1C5CHFA_enUS909US909&output=search&q=chick+fil+a+at+msc&entry=mc&sa=X&ved=2ahUKEwjZ_q_867b-AhX5ElkFHWHlDRAQ0pQJegQIDBAB' + marker.getPosition().lat() + ',' + marker.getPosition().lng();
+                window.open(url, '_blank');
+            });
+        }
+    </script>
+
+    
+        
+    
+</html>

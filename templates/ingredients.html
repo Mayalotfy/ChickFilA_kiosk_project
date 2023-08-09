@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory</h1>
+        <br>
+        <a href= "{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addIngredientModal">
+            Add Ingredient
+        </button>
+        <a href= "{{ url_for('restock') }}" class="btn btn-danger">Restock Report</a>
+        <a href= "{{ url_for('excess_sale') }}" class="btn btn-danger">Excess Report</a>
+      
+        
+        <br><br>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Categories</th>
+                            <th>Ingredients</th>
+                            <th>Quantities Per Day</th>
+                            <th>Full Stock</th>
+                            <th>Low Stock</th>
+                            <th colspan="2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmRemoveModal{{ row[0] }}">Remove</button>
+                                <div class="modal fade" id="confirmRemoveModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Remove</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to remove this item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('remove_ingredient') }}">
+                                                    <input type="hidden" name="ingredient_id" value="{{ row[0] }}">
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success3IngredientModal">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateIngredientModal{{ row[0] }}">Update</button>
+                                <form method="POST" action="{{ url_for('update_ingredient') }}">
+                                    <div class="modal fade" id="updateIngredientModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="updateIngredientModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateIngredientModalLabel">Update Ingredient</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="ingredient_id" value="{{ row[0] }}">
+                                                    <div class="form-group">
+                                                        <label for="category">Category:</label>
+                                                        <input type="text" class="form-control" id="category" name="category" value="{{ row[1] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ingredient">Ingredient:</label>
+                                                        <input type="text" class="form-control" id="ingredient" name="ingredient" value="{{ row[2] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="quantity">Quantity Per Day:</label>
+                                                        <input type="text" class="form-control" id="quantity" name="quantity" value="{{ row[3] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="full">Full Stock:</label>
+                                                        <input type="text" class="form-control" id="full" name="full" value="{{ row[4] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="low">Low Stock:</label>
+                                                        <input type="text" class="form-control" id="low" name="low" value="{{ row[5] }}">
+                                                   
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success2IngredientModal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+                
+            
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="addIngredientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addIngredientModalLabel">Add Ingredient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('add_ingredient') }}">
+                        <div class="form-group">
+                            <label for="id">Id:</label>
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <input type="text" class="form-control" id="category" name="category">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredient">Ingredient:</label>
+                            <input type="text" class="form-control" id="ingredient" name="ingredient">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity Per Day:</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="full">Full Stock:</label>
+                            <input type="text" class="form-control" id="full" name="full">
+                        </div>
+                        <div class="form-group">
+                            <label for="low">Low Stock:</label>
+                            <input type="text" class="form-control" id="low" name="low">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#SuccessIngredientModal">Add Ingredient</button>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Adding ingredients Confirmation Modal -->
+    <div class="modal fade" id="SuccessIngredientModal" tabindex="-1" role="dialog" aria-labelledby="SuccessIngredientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessIngredientModalLabel">Ingredient Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The ingredient has been added successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Confirmation ingredients Modal -->
+    <div class="modal fade" id="Success2IngredientModal" tabindex="-1" role="dialog" aria-labelledby="Success2IngredientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success2IngredientModalLabel">Ingredient Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The ingredient information has been updated!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Ingredients Modal -->
+    <div class="modal fade" id="Success3IngredientModal" tabindex="-1" role="dialog" aria-labelledby="Success3IngredientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success3IngredientModalLabel">Ingredient Removed</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The ingredient has been removed!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

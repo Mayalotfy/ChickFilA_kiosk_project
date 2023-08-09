@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/Kiosk_css/kiosk.css') }}">
+        <title>Menu</title>
+    </head>
+
+    <body>
+        <!-- ----------------------- top navbar --------------------- -->
+        {% include 'kiosk/nav.html' %}
+        <!-- ------------------------------------------------------------ -->
+        
+    <div class="container">    
+    <a>
+        <img src="{{ url_for('static', filename='images/'+image[0][0]) }}" alt={{image[0][0]}}, class="title_image" style="  width: auto;height: 400px;"> 
+    </a>
+    <h1 style="color:rgb(63, 63, 63)">{{ name }}</h1>
+    <h1 style="color:rgb(63, 63, 63)">${{ prices[0][0] }}</h1>
+    
+    {% if extra or sauce or combo_drinks %}
+        <div class="sticky-top" style="background-color: rgb(255, 255, 255);">
+        <div class="leftText" style="color:rgb(63, 63, 63)">Included</div>
+        <ul class="selections" id="selections"></ul>
+        </div>
+    {% endif %}
+    
+    {% if combo_drinks %}
+        <div class="leftText" style="color:rgb(63, 63, 63)"> Drinks </div>
+        <div class = "blocks">
+            <ul style="justify-content:left">
+                {% for d in combo_drinks %}
+                <li class="items blocks_b" style="margin:12px; color:rgb(63, 63, 63)" onclick="addExclusive(this, 'drinks');">
+                    <img src="{{ url_for('static', filename='images/'+d[2]) }}" alt={{d[2]}}, class="center_image">
+                    {{ d[0] }} +${{ d[1] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="leftText" style="color:rgb(63, 63, 63)"> Sides </div>
+        <div class = "blocks">
+            <ul style="justify-content:left">
+                {% for si in combo_sides %}
+                <li class="items blocks_b" style="margin:12px; color:rgb(63, 63, 63)" onclick="addExclusive(this, 'sides');">
+                    <img src="{{ url_for('static', filename='images/'+ si[2]) }}" alt={{si[2]}}, class="center_image">
+                    {{ si[0] }} +${{ si[1] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="leftText" style="color:rgb(63, 63, 63)"> Sauces </div>
+        <div class = "blocks">
+            <ul style="justify-content:left">
+                {% for sa in combo_sauces %}
+                <li class="items blocks_b" style="margin:12px; color:rgb(63, 63, 63)" onclick="addMultiple(this);">
+                    <img src="{{ url_for('static', filename='images/'+ sa[2]) }}" alt={{sa[2]}}, class="center_image">
+                    {{ sa[0] }} +${{ sa[1] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        {% if combo_extras %}
+            <div class="leftText" style="color:rgb(63, 63, 63)"> Extras </div>
+            <div class = "blocks">
+                <ul style="justify-content:left">
+                    {% for ex in combo_extras %}
+                    <li class="items blocks_b" style="margin:12px; color:rgb(63, 63, 63)" onclick="addMultiple(this);">
+                        <img src="{{ url_for('static', filename='images/'+ex[2]) }}" alt={{ex[2]}}, class="center_image">
+                        {{ ex[0] }} +${{ ex[1] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+
+<!-- 
+    <a href="#" class="fa fa-plus float">
+        <button class="button2">Add to Cart</button>
+    </a> -->
+    
+        <!-- ----------------------- bottom navbar --------------------- -->
+        
+        <div id="footer"></div>
+        <nav class="navbar navbar-inverse navbar-fixed-bottom fixed-bottom nav-pills flex-column flex-sm-row" style="height: 85px; outline: none; border-style: none; background-color: #E60E33;">
+            <div class="flex-sm-fill text-sm-center nav-link" style="font-size:20px; color:rgb(255, 255, 255)">
+                <a href="{{ url_for('menu', cat=cur) }}" type="button" class="btn" style="font-size:20px; color:rgb(255, 255, 255)">Back</a>
+            </div>
+            <div class="flex-sm-fill text-sm-center nav-link" style="font-size:20px; color:rgb(255, 255, 255)">
+                <!-- <a href="{{ url_for('categories') }}"> 
+                    <button type="button" class="btn" style="font-size:20px; color:rgb(255, 255, 255)" onclick="sendItems(); refreshPage();">Add to Cart</button>
+                </a> -->
+                    <a type="button" class="btn" style="font-size:20px; color:rgb(255, 255, 255)" onclick="sendItems()">Add to Cart</a>
+            </div>
+        </nav>
+        <!-- ------------------------------------------------------------ -->
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <script>
+            const selectedItems = [];
+            const selectionCount = {};
+            const exclusiveItems = {};
+            function addExclusive(item, cat) {
+                const itemName = $(item).text().split('+')[0].trim();
+                if (cat in exclusiveItems) {
+                    if (exclusiveItems[cat] !== itemName) {
+                        removeItem(exclusiveItems[cat], false);
+                        exclusiveItems[cat] = itemName;
+                        addItem(itemName);
+                    }
+                } else {
+                    exclusiveItems[cat] = itemName;
+                    addItem(itemName);
+                }
+            }
+
+            function addMultiple(item) {
+                const itemName = $(item).text().split('+')[0].trim();
+                addItem(itemName);
+            }
+
+            function removeSelection(itemName) {
+                removeItem(itemName);
+            }
+
+            function refreshSelection() {
+                console.log('selectedItms:', selectedItems);
+                console.log('selectionCount:', selectionCount);
+                let htmlString = '';
+                for (const item of selectedItems) {
+                    console.log(item);
+                    htmlString += `
+                        <button type="button" class="included btn btn-outline-secondary m-2 bg-white" onclick="removeSelection('${item}')">
+                            ${item} <span class="badge text-bg-warning">${selectionCount[item]}</span>
+                        </button>
+                    `;
+                }
+                $('#selections').html(htmlString);
+            }
+
+            function addItem(itemName) {
+                if (selectedItems.includes(itemName)) {
+                    if (itemName in selectionCount) {
+                        if (!itemName.startsWith('No ') && !itemName.endsWith(' Bun'))
+                            selectionCount[itemName]++;
+                    } else {
+                        selectionCount[itemName] = 1;
+                    }
+                } else {
+                    selectedItems.push(itemName);
+                    selectionCount[itemName] = 1;
+                }
+
+                refreshSelection();    
+            }
+
+            function removeItem(itemName, refresh=true) {
+                let index = selectedItems.indexOf(itemName);
+                if (index === -1) {
+                    return;
+                } else {
+                    if (itemName in selectionCount) {
+                        if (selectionCount[itemName] > 0)
+                            selectionCount[itemName]--;
+                        if (selectionCount[itemName] == 0)
+                            selectedItems.splice(index, 1);
+                    } else {
+                        selectedItems.splice(index, 1);
+                    }
+                    for (const [cat, item] of Object.entries(exclusiveItems)) {
+                        if (item == itemName) {
+                            exclusiveItems[cat] = '';
+                        }
+                    }
+                }
+    
+                if (refresh)
+                    refreshSelection();
+            }
+
+            function sendItems() {
+                let data = {
+                    name: "{{ name }}",
+                };
+
+                $('.included').each(function() {
+                    const item = $(this).contents().filter(function() {
+                        return this.nodeType == 3;
+                    }).text().trim();
+                    const count = $(this).children('span').text();
+                    data[item] = parseInt(count);
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('sendToCart') }}",
+                    data: JSON.stringify (data),
+                    success: function(data) {},
+                    error: function() { alert('error'); },
+                    contentType: "application/json",
+                    dataType: 'json'
+                });
+
+                setTimeout(myURL, 1000);
+            }
+
+            function myURL() {
+                document.location.href = "{{ url_for('categories') }}";
+            }
+        </script>
+    </body>
+    </html>

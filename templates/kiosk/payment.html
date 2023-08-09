@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Kiosk_css/kiosk.css') }}">
+    <title>Payment</title>
+</head>
+<style>
+    .table-wrapper {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    thead,
+    tfoot {
+    position: sticky;
+    background-color: #f7f7f7;
+    top: 0;
+    }
+
+    tfoot {
+    bottom: 0;
+    }
+
+    
+    
+</style>
+<body>
+    <!------------------------- top navbar ----------------------->
+        {% include 'kiosk/nav.html' %}
+    <!---------------------------------------------------------------->
+
+    <div id="centerPanel" class ="table-wrapper" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody class="table-wrapper">
+                {% set ns = namespace(row_num=1) %}
+                {% for key, values in newOrder.cartItem.items()%}
+                    {% for value in values %}
+                        <tr>
+                            <th scope="row">{{ ns.row_num }}</th>
+                            {% set ns.row_num = ns.row_num + 1 %}
+                            <td>{{ key }}
+                                {% if 'None' not in value %}
+                                    <small class="text-muted"> with {{ ", ".join(value) }}</small>
+                                {% endif %}
+                            </td>
+                            <td>${{ newOrder.getPrice(key,value) }}</td>
+                        </tr>   
+                    {% endfor %}
+                {% endfor %}
+                <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Tax</th>
+                    <th>${{newOrder.tax}}</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Total</th>
+                    <th>${{newOrder.subtotal}}</th>
+                </tr>
+                </tfoot>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function submitName() {
+            var name = document.getElementById("name").value;
+            if (name.trim() != "") {
+                document.getElementById("nameForm").style.display = "none";
+                document.getElementById("processing").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("processing").style.display = "none";
+                    document.getElementById("paymentType").style.display = "block";
+                }, 2000);
+            } else {
+                alert("Please enter a valid name.");
+            }
+            document.getElementById("userName").textContent = name;
+        }
+        function showProcessing() {
+            document.getElementById("processing").style.display = "block";
+        }
+        </script>
+        <!------------------------ Name form --------------------------->
+        <div id="nameForm" class="border rounded p-3 text-center">
+            <h4 class="mb-3">Please Enter the name for the order:</h4>
+            <div class="form-group">
+                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name here">
+            </div>
+            <button type="button" class="btn btn-danger btn-lg d-block mx-auto" onclick="submitName()">Submit</button>
+        </div>
+          <!-------------------Pay Option--------------------------->
+          <div id="paymentType" style="display: none;">
+            <div class="d-flex justify-content-center align-items-center flex-wrap">
+              <p>Thank you, <span id="userName"></span>! Please select your payment option:</p>
+              <div class="d-flex justify-content-center align-items-center flex-wrap">
+                <button type="button" class="btn btn-danger btn-lg m-3" onclick="showProcessing(); setTimeout(function(){ window.location.href='/kiosk/confirmation'; }, 2000);">Pay with Card</button>
+                <button type="button" class="btn btn-danger btn-lg m-3" onclick="showProcessing(); setTimeout(function(){ window.location.href='/kiosk/confirmation'; }, 2000);">Pay with Student ID</button>
+              </div>
+            </div>
+          </div>
+          <!-------------------Processing--------------------------->
+        <div id="processing" style="display: none; text-align: center; font-size: 24px; margin-top: 20px;">
+            Processing...
+        </div>
+        <!------------------------- bottom navbar ----------------------->
+   <div id="footer">
+    <nav class="navbar navbar-inverse navbar-fixed-bottom fixed-bottom nav-pills flex-column flex-sm-row" style="outline: none; border-style: none; background-color: #E60E33;">
+        <a class="flex-sm-fill text-sm-center nav-link" href="{{ url_for('receipt') }}" style="color:rgb(255, 255, 255)">
+            <button type="button" class="btn" style="color:rgb(255, 255, 255)">Change order</button>
+        </a>
+        <a class="flex-sm-fill text-sm-center nav-link" onclick="" href="{{ url_for('kiosk') }}" style="color:rgb(255, 255, 255)">
+            <button type="button" class="btn" style="color:rgb(255, 255, 255)">Cancel order</button>
+        </a>
+    </nav>
+</div>
+<!---------------------------------------------------------------->
+        

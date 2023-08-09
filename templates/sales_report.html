@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Report</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Sales Report</h1>
+        <a href= "{{ url_for('orders') }}" class="btn btn-danger">Back to Order History</a>
+        <button id="export-btn" class="btn btn-danger">Export to Excel</button>
+        <script>
+            // Get the data from the table
+            function getData() {
+                var data = [];
+                var rows = document.querySelectorAll("table tbody tr");
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [];
+                    var cells = rows[i].querySelectorAll("td");
+                    for (var j = 0; j < cells.length; j++) {
+                        row.push(cells[j].innerText);
+                    }
+                    data.push(row);
+                }
+                return data;
+            }
+        
+            // Create an Excel file and download it
+            function exportToExcel() {
+                // Create a new Excel workbook and sheet
+                var workbook = new ExcelJS.Workbook();
+                var sheet = workbook.addWorksheet("Sales Report");
+
+                // Add the table headers to the sheet
+                var header = [];
+                var headerCells = document.querySelectorAll("table thead th");
+                for (var i = 0; i < headerCells.length; i++) {
+                    header.push(headerCells[i].innerText);
+                }
+                sheet.addRow(header);
+
+        
+                // Add the table data to the sheet
+                var data = getData();
+                sheet.addRows(data);
+        
+                // Create a download link for the Excel file
+                workbook.xlsx.writeBuffer().then(function(buffer) {
+                    var blob = new Blob([buffer], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+                    var url = window.URL.createObjectURL(blob);
+                    var link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "Sales Report.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+        
+            // Add a click event listener to the export button
+            var exportBtn = document.getElementById("export-btn");
+            exportBtn.addEventListener("click", exportToExcel);
+        </script>
+        
+        <br><br>
+        
+        <table class="table table-striped" id="salesReportTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Order Number</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Items</th>
+                    <th>Customizations</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

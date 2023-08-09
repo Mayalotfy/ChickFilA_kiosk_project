@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Vendors List</h1>
+        <a href= "{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addVendorModal">
+            Add Vendor
+        </button>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Categories</th>
+                            <th>Ingredients</th>
+                            <th colspan="2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmRemoveModal{{ row[0] }}">Remove</button>
+                                <div class="modal fade" id="confirmRemoveModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Remove</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to remove this item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('remove_vendor') }}">
+                                                    <input type="hidden" name="vendor_id" value="{{ row[0] }}">
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success3VendorModal">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateVendorModal{{ row[0] }}">Update</button>
+                                <form method="POST" action="{{ url_for('update_vendor') }}">
+                                    <div class="modal fade" id="updateVendorModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="updateVendorModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateVendorModalLabel">Update Vendor</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="vendor_id" value="{{ row[0] }}">
+                                                    <div class="form-group">
+                                                        <label for="name">Name:</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ row[1] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="categories">Categories:</label>
+                                                        <input type="text" class="form-control" id="categories" name="categories" value="{{ row[2] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ingredients">Ingredients:</label>
+                                                        <input type="text" class="form-control" id="ingredients" name="ingredients" value="{{ row[3] }}">
+                                                    </div> 
+                                                    
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success2VendorModal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+            
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addVendorModal" tabindex="-1" role="dialog" aria-labelledby="addVendorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addVendorModalLabel">Add Vendor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('add_vendor') }}">
+                        <div class="form-group">
+                            <label for="id">Id:</label>
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Categories:</label>
+                            <input type="text" class="form-control" id="categories" name="categories">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredients">Ingredients:</label>
+                            <input type="text" class="form-control" id="ingredients" name="ingredients">
+                        </div>  
+                       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#SuccessVendorModal">Add Vendor </button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Adding Vendor Confirmation Modal -->
+    <div class="modal fade" id="SuccessVendorModal" tabindex="-1" role="dialog" aria-labelledby="SuccessVendorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessVendorModalLabel">Vendor Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The vendor has been added successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Confirmation Vendor Modal -->
+    <div class="modal fade" id="Success2VendorModal" tabindex="-1" role="dialog" aria-labelledby="Success2VendorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success2VendorModalLabel">Vendor Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The vendor information has been updated!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Vendor Modal -->
+    <div class="modal fade" id="Success3VendorModal" tabindex="-1" role="dialog" aria-labelledby="Success3VendorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success3VendorModalLabel">Vendor Removed</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The vendor has been removed!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+
+    

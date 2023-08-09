@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".map-btn").click(function(){
+                $("#map-container").slideToggle("slow");
+            });
+
+            // update timestamp every second
+            setInterval(function() {
+                var now = new Date();
+                var timeString = now.toLocaleTimeString();
+                var colors = [ "brown", "gray", "silver", "brown"]; // color list for animation
+                var colorIndex = Math.floor(Math.random() * colors.length); // select a random color from the list
+                $("#timestamp").text(timeString).css("color", colors[colorIndex]); // update the timestamp and the color
+            }, 1000);
+        });
+    </script>
+    <style>
+        body {
+            background-color: rgb(254, 231, 231);
+        }
+        .btn {
+            font-size: 20px;
+            padding: 15px 30px;
+        }
+        #timestamp {
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .clock-btn {
+            background-color: rgb(254, 231, 231);
+            border: none;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <br>
+    <div class="text-center">
+        <h1 style="color: rgb(0, 0, 0); font-weight: bold;">Howdy, Chick-fil-A Crew!</h1>
+        <h1><span class="badge badge-primary btn clock-btn" id="timestamp"></span></h1><br>
+    </div>  
+    <div class="text-center">
+        <img src="https://cdn.cookielaw.org/logos/63dc78c7-5612-4181-beae-47dead0569ee/666a8744-979e-4263-b2c2-093036f7ec5f/d5e0c553-41c6-41f7-b91f-be2f73c122c6/Chick-fil-A-Logo.png" style="width: 30%; height: 30%;" class="img-fluid" alt="CFA logo">
+    </div>  <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{ url_for('kiosk') }}" class="btn btn-danger btn-lg btn-block">Open Kiosk</a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('managerlogin') }}" class="btn btn-danger btn-lg btn-block">Manager's Menu</a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('serverlogin') }}" class="btn btn-danger btn-lg btn-block">Server's Menu</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="btn btn-secondary btn-lg btn-block map-btn">View Map</a>
+            </div>
+        </div>
+        
+        <div id="map-container" style="display:none;">
+            <iframe src="{{ url_for('map') }}" width="100%" height="500" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+</body>
+</html>

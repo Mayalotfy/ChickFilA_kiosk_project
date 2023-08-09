@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Pages</title>
+  </head>
+  <body>
+    <h1>My Pages</h1>
+    <ul>
+      {% for html_file in html_files %}
+      <li><a href="{{ html_file }}">{{ html_file }}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

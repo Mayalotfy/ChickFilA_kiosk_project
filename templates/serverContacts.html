@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+</html>
+<head>
+<title>Contacts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<script>
+//search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+<body>
+    <div class="container">
+    <h1>Contacts</h1>
+        <a href= "{{ url_for('server') }}" class="btn btn-danger">Back to Server Dashboard</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addServerContactModal">
+            Add Contact
+        </button>
+        <br><br>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>On Campus Dialing</th>
+                            <th>Off Campus Dialing</th>
+                            <th colspan="2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmServerRemoveModal{{ row[0] }}">Remove</button>
+                                <div class="modal fade" id="confirmServerRemoveModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmServerRemoveModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmServerRemoveModalLabel">Confirm Remove</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to remove this item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('removeServerContact') }}">
+                                                    <input type="hidden" name="contact_id" value="{{ row[0] }}">
+                                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateServerContactModal{{ row[0] }}">Update</button>
+                                <form method="POST"cccccccccc action="{{ url_for('updateServerContact') }}">
+                                    <div class="modal fade" id="updateServerContactModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="updateServerContactModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateServerContactModalLabel">Update Contact</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="contact_id" value="{{ row[0] }}">
+                                                    <div class="form-group">
+                                                        <label for="name">Name:</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ row[1] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="category">Category:</label>
+                                                        <input type="text" class="form-control" id="category" name="category" value="{{ row[2] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="on_campus_dialing">On Campus Dialing:</label>
+                                                        <input type="text" class="form-control" id="on_campus_dialing" name="on_campus_dialing" value="{{ row[3] }}">
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label for="off_campus_dialing">Off Campus Dialing:</label>
+                                                        <input type="text" class="form-control" id="off_campus_dialing" name="off_campus_dialing" value="{{ row[4] }}">
+                                                    </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addServerContactModal" tabindex="-1" role="dialog" aria-labelledby="addServerContactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addServerContactModalLabel">Add Contact</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{ url_for('addServerContact') }}">
+                <div class="form-group">
+                    <label for="id">Id:</label>
+                    <input type="text" class="form-control" id="id" name="id">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" class="form-control" id="category" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="onCampusDialing">On Campus Dialing:</label>
+                    <input type="text" class="form-control" id="onCampusDialing" name="onCampusDialing">
+                </div>  
+                <div class="form-group">
+                    <label for="offCampusDialing">Off Campus Dialing:</label>
+                    <input type="text" class="form-control" id="offCampusDialing" name="offCampusDialing">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Add Contact</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    </div>
+    </div>
+    <div class="modal fade" id="SuccessContactServerModal" tabindex="-1" role="dialog" aria-labelledby="SuccessServerContactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessServerContactModalLabel">Contact Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The contact has been added successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SuccessUpdateServerContactModal" tabindex="-1" role="dialog" aria-labelledby="SuccessUpdateServerContactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessUpdateServerContactModalLabel">Contact Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The contact information has been updated!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Contacts Modal -->
+    <div class="modal fade" id="SuccessRemoveServerContactModal" tabindex="-1" role="dialog" aria-labelledby="SuccessRemoveServerContactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessRemoveServerContactModalLabel">Contact Removed</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The contact has been removed!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+

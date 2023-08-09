@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+
+
+
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Order History</h1>
+        <a href= "{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <!-- Button trigger modal -->
+        <button id="export-btn" class="btn btn-danger">Export to Excel</button>
+        <script>
+            // Get the data from the table
+            function getData() {
+                var data = [];
+                var rows = document.querySelectorAll("table tbody tr");
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [];
+                    var cells = rows[i].querySelectorAll("td");
+                    for (var j = 0; j < cells.length; j++) {
+                        row.push(cells[j].innerText);
+                    }
+                    data.push(row);
+                }
+                return data;
+            }
+        
+            // Create an Excel file and download it
+            function exportToExcel() {
+                // Create a new Excel workbook and sheet
+                var workbook = new ExcelJS.Workbook();
+                var sheet = workbook.addWorksheet("Order History");
+
+                // Add the table headers to the sheet
+                var header = [];
+                var headerCells = document.querySelectorAll("table thead th");
+                for (var i = 0; i < headerCells.length; i++) {
+                    header.push(headerCells[i].innerText);
+                }
+                sheet.addRow(header);
+
+        
+                // Add the table data to the sheet
+                var data = getData();
+                sheet.addRows(data);
+        
+                // Create a download link for the Excel file
+                workbook.xlsx.writeBuffer().then(function(buffer) {
+                    var blob = new Blob([buffer], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+                    var url = window.URL.createObjectURL(blob);
+                    var link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "Order History.xlsx");
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+        
+            // Add a click event listener to the export button
+            var exportBtn = document.getElementById("export-btn");
+            exportBtn.addEventListener("click", exportToExcel);
+        </script>
+        
+        <!-- Button to open the modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+            Sales Report
+        </button>
+
+        
+        <div class="input-group mt-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Order Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Items</th>
+                            <th>Customizations</th>
+                            <th>Price</th>
+                            <th></th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>
+                                {% if row[6] >= 0 %}
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmRefundModal{{ row[0] }}">Refund</button>
+                                    <div class="modal fade" id="confirmRefundModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmRefundModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmRefundModalLabel">Confirm Refund</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to refund this item?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <form method="POST" action="{{ url_for('refund_order') }}">
+                                                        <input type="hidden" name="order_id" value="{{ row[0] }}">
+                                                        <button type="submit" class="btn btn-danger">Refund</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Sales Report</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form method="POST" action="/retrieve-report">
+                        <div class="form-group">
+                            <label for="date">Date:</label>
+                            <input type="text" class="form-control" id="date" name="date" placeholder="mm/dd/yyyy" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="start-time">Start Time:</label>
+                            <input type="text" class="form-control" id="start-time" name="startTime" placeholder="hh:mm:ss" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-time">End Time:</label>
+                            <input type="text" class="form-control" id="end-time" name="endTime" placeholder="hh:mm:ss" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Retrieve Report</button>
+                        <br><br>
+                    </form>
+                    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  
+        
+
+        
+
+</body>
+</html>

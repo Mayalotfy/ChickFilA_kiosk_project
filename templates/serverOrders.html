@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+</html>
+<head>
+<title>Contacts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h1>Order History</h1>
+    <a href= "{{url_for('server') }}" class="btn btn-danger">Back to Server Dashboard</a>
+    <br><br>
+     <div class="input-group mt-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+        </div>
+    <div class="row mt-3">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Order Number</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Items</th>
+                        <th>Customizations</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td>{{ row[5] }}</td>
+                        <td>{{ row[6] }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

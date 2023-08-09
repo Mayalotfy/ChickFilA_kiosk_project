@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+    
+
+</head>
+<body>
+    <div class="container">
+        <h1>Menu Items</h1>
+        <a href= "{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addItemModal">
+            Add Item
+        </button>
+        
+        <br><br>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+        
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th colspan="3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmRemoveModal{{ row[0] }}">Remove</button>
+                                <div class="modal fade" id="confirmRemoveModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Remove</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to remove this item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('remove_item') }}">
+                                                    <input type="hidden" name="item_id" value="{{ row[0] }}">
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success3ItemModal">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                           
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateItemModal{{ row[0] }}">Update</button>
+                                <form method="POST" action="{{ url_for('update_item') }}">
+                                    <div class="modal fade" id="updateItemModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="updateItemModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateItemModalLabel">Update Item</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="item_id" value="{{ row[0] }}">
+                                                    <div class="form-group">
+                                                        <label for="category">Category:</label>
+                                                        <input type="text" class="form-control" id="category" name="category" value="{{ row[1] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="item">Item:</label>
+                                                        <input type="text" class="form-control" id="item" name="item" value="{{ row[2] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="price">Price:</label>
+                                                        <input type="text" class="form-control" id="price" name="price" value="{{ row[3] }}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success2ItemModal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                            <td>
+
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addIngredientModal{{ row[0] }}">Add Ingredient</button>
+                                <form method="POST" action="{{ url_for('add_ingredient_item') }}">
+                                    <div class="modal fade" id="addIngredientModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="addIngredientModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addIngredientModalLabel">Add Ingredient</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="id">Id:</label>
+                                                        <input type="text" class="form-control" id="id" name="id">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="category">Category:</label>
+                                                        <input type="text" class="form-control" id="category" name="category">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ingredient">Ingredient:</label>
+                                                        <input type="text" class="form-control" id="ingredient" name="ingredient">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="quantity">Quantity Per Day:</label>
+                                                        <input type="text" class="form-control" id="quantity" name="quantity">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="full">Full Stock:</label>
+                                                        <input type="text" class="form-control" id="full" name="full">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="low">Low Stock:</label>
+                                                        <input type="text" class="form-control" id="low" name="low">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#SuccessItemModal">Add Ingredient</button>
+                                                    </div>
+                                                        
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+        
+                
+            
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('add_item') }}">
+                        <div class="form-group">
+                            <label for="id">Id:</label>
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <input type="text" class="form-control" id="category" name="category">
+                        </div>
+                        <div class="form-group">
+                            <label for="item">Item:</label>
+                            <input type="text" class="form-control" id="item" name="item">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="text" class="form-control" id="price" name="price">
+                        </div>  
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success4ItemModal">Add Item</button>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+     <!-- Adding ingredients Confirmation Modal -->
+     <div class="modal fade" id="SuccessItemModal" tabindex="-1" role="dialog" aria-labelledby="SuccessItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessItemModalLabel">Ingredient Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Ingredient has been added to item successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adding items Confirmation Modal -->
+    <div class="modal fade" id="Success4ItemModal" tabindex="-1" role="dialog" aria-labelledby="Success4ItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success4ItemModalLabel">Item Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Item has been added successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Confirmation items Modal -->
+    <div class="modal fade" id="Success2ItemModal" tabindex="-1" role="dialog" aria-labelledby="Success2ItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success2ItemModalLabel">Item Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The item information has been updated!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Items Modal -->
+    <div class="modal fade" id="Success3ItemModal" tabindex="-1" role="dialog" aria-labelledby="Success3ItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success3ItemModalLabel">Item Removed</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The item has been removed!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+
+
+
+    

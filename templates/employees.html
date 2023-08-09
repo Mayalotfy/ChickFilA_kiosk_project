@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
+    <script>
+        //search bar functionality
+        $(document).ready(function(){
+            // input field
+            $("input.form-control").keydown(function(event){
+                // Enter Keyboard
+                if(event.keyCode == 13){
+                    $("button.btn.btn-outline-secondary").click();
+                }
+            });
+            
+            //search button
+            $("button.btn.btn-outline-secondary").click(function(){
+                var value = $("input.form-control").val().toLowerCase();
+                $("tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+
+        
+    
+    
+   
+    
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Employees List</h1>
+        <a href= "{{ url_for('manager_dashboard') }}" class="btn btn-danger">Back to Manager Dashboard</a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addEmployeeModal">
+            Add Employee
+        </button>
+        
+        
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>UIN</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Hours Worked Per Day</th>
+                            <th>Salary Per Week</th>
+                            <th colspan="2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                            
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmRemoveModal{{ row[0] }}">Remove</button>
+                                <div class="modal fade" id="confirmRemoveModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Remove</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to remove this item?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('remove_employee') }}">
+                                                    <input type="hidden" name="employee_id" value="{{ row[0] }}">
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success3EmployeeModal">Remove</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateEmployeeModal{{ row[0] }}">Update</button>
+                                <form method="POST" action="{{ url_for('update_employee') }}">
+                                    <div class="modal fade" id="updateEmployeeModal{{ row[0] }}" tabindex="-1" role="dialog" aria-labelledby="updateEmployeeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateEmployeeModalLabel">Update Employee</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="employee_id" value="{{ row[0] }}">
+                                                    <div class="form-group">
+                                                        <label for="name">Name:</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ row[1] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="number">Number:</label>
+                                                        <input type="text" class="form-control" id="number" name="number" value="{{ row[2] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email:</label>
+                                                        <input type="text" class="form-control" id="email" name="email" value="{{ row[3] }}">
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <label for="HoursWorkedPerWeek">Hours Worked Per Week:</label>
+                                                        <input type="text" class="form-control" id="HoursWorkedPerWeek" name="HoursWorkedPerWeek" value="{{ row[4] }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="SalaryPerWeek">Salary Per Week :</label>
+                                                        <input type="text" class="form-control" id="SalaryPerWeek" name="SalaryPerWeek" value="{{ row[5] }}">
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#Success2EmployeeModal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+                
+            
+    </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('add_employee') }}" >
+                        <div class="form-group">
+                            <label for="UIN">UIN:</label>
+                            <input type="text" class="form-control" id="UIN" name="UIN">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Number:</label>
+                            <input type="text" class="form-control" id="number" name="number">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>  
+                        <div class="form-group">
+                            <label for="HoursWorkedPerWeek">Hours Worked Per Week:</label>
+                            <input type="text" class="form-control" id="HoursWorkedPerWeek" name="HoursWorkedPerWeek">
+                        </div>
+                        <div class="form-group">
+                            <label for="SalaryPerWeek">Salary Per Week :</label>
+                            <input type="text" class="form-control" id="SalaryPerWeek" name="SalaryPerWeek">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#SuccessEmployeeModal">Add</button>
+                        </div>
+                    </form>
+                </div>
+               
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Adding Employee Confirmation Modal -->
+    <div class="modal fade" id="SuccessEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="SuccessEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SuccessEmployeeModalLabel">Employee Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The employee has been added successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Confirmation Employee Modal -->
+    <div class="modal fade" id="Success2EmployeeModal" tabindex="-1" role="dialog" aria-labelledby="Success2EmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success2EmployeeModalLabel">Employee Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The employee information has been updated!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Confirmation Employee Modal -->
+    <div class="modal fade" id="Success3EmployeeModal" tabindex="-1" role="dialog" aria-labelledby="Success3EmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Success3EmployeeModalLabel">Employee Removed</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The employee has been removed!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+    
+      
+
+
+    
+
+
+    
+</body>
+</html>
