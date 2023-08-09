@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module manager</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">manager</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/manager.py">/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/manager.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="Summary.html">Summary</a><br>
+</td><td class="multicolumn"><a href="psycopg2.html">psycopg2</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-add_contact"><strong>add_contact</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;a&nbsp;contact&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Add&nbsp;Contact.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;insert&nbsp;new&nbsp;Contact.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;contacts&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-add_employee"><strong>add_employee</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;an&nbsp;employee&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Add&nbsp;Employee.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;insert&nbsp;new&nbsp;employee.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;employees&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-add_ingredient"><strong>add_ingredient</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;an&nbsp;ingredients&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Add&nbsp;Ingredient.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;insert&nbsp;new&nbsp;ingredient.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;inventory&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-add_ingredient_item"><strong>add_ingredient_item</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;a&nbsp;new&nbsp;ingredient&nbsp;to&nbsp;the&nbsp;corresponding&nbsp;item.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;add&nbsp;the&nbsp;new&nbsp;ingredient&nbsp;in&nbsp;the&nbsp;inventory&nbsp;table<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;items&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-add_item"><strong>add_item</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;an&nbsp;item&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Add&nbsp;Item.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;insert&nbsp;new&nbsp;item.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;items&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-add_vendor"><strong>add_vendor</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;add&nbsp;a&nbsp;new&nbsp;vendor&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Add&nbsp;Vendor.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;insert&nbsp;new&nbsp;vendor.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;vendors&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-complete_restock"><strong>complete_restock</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;restock&nbsp;a&nbsp;certain&nbsp;ingredient&nbsp;if&nbsp;it's&nbsp;low&nbsp;on&nbsp;stock&nbsp;and&nbsp;the&nbsp;button&nbsp;Restock&nbsp;is&nbsp;pressed.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;restock&nbsp;report&nbsp;page&nbsp;to&nbsp;display&nbsp;the&nbsp;table&nbsp;and&nbsp;it&nbsp;shows&nbsp;that&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;ingredient&nbsp;no&nbsp;longer&nbsp;exists&nbsp;since&nbsp;it&nbsp;has&nbsp;been&nbsp;restocked.</span></dd></dl>
+ <dl><dt><a name="-contacts"><strong>contacts</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;emergency&nbsp;contacts&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;contacts<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;contacts&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-db_connection"><strong>db_connection</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;creates&nbsp;a&nbsp;connection&nbsp;to&nbsp;a&nbsp;PostgreSQL&nbsp;database&nbsp;with&nbsp;the&nbsp;given<br>
+credentials&nbsp;and&nbsp;returns&nbsp;the&nbsp;connection&nbsp;object.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;psycopg2.extensions.connection:&nbsp;The&nbsp;connection&nbsp;object&nbsp;for&nbsp;the&nbsp;database</span></dd></dl>
+ <dl><dt><a name="-employees"><strong>employees</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;employees&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;employees<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;employees&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-excess_sale"><strong>excess_sale</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;excess&nbsp;report&nbsp;of&nbsp;the&nbsp;inventory&nbsp;where&nbsp;items&nbsp;are&nbsp;full&nbsp;in&nbsp;stock.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;excess&nbsp;report&nbsp;page&nbsp;to&nbsp;display&nbsp;the&nbsp;table</span></dd></dl>
+ <dl><dt><a name="-get_timestamp"><strong>get_timestamp</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;returns&nbsp;timestamp&nbsp;to&nbsp;be&nbsp;saved&nbsp;during&nbsp;login</span></dd></dl>
+ <dl><dt><a name="-ingredients"><strong>ingredients</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;ingredients&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;inventory<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;ingredients&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-items"><strong>items</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;items&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;items<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;items&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-manager_dashboard"><strong>manager_dashboard</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;the&nbsp;manager_dashboard&nbsp;to&nbsp;be&nbsp;displayed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;manager's&nbsp;dashboard</span></dd></dl>
+ <dl><dt><a name="-orders"><strong>orders</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;the&nbsp;order&nbsp;hisory&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;orders<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;orders&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-refund_order"><strong>refund_order</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;refund&nbsp;an&nbsp;order&nbsp;from&nbsp;orderhistory&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Refund.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;orderhistory&nbsp;to&nbsp;display&nbsp;the&nbsp;table&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;the&nbsp;item&nbsp;that&nbsp;has&nbsp;been&nbsp;refunded&nbsp;is&nbsp;added&nbsp;but&nbsp;with&nbsp;a&nbsp;negative&nbsp;price</span></dd></dl>
+ <dl><dt><a name="-remove_contact"><strong>remove_contact</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;remove&nbsp;a&nbsp;contact&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Remove.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;remove&nbsp;existing&nbsp;Contact.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;contacts&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-remove_employee"><strong>remove_employee</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;remove&nbsp;an&nbsp;employee&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Remove.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;remove&nbsp;new&nbsp;employee.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;employees&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-remove_ingredient"><strong>remove_ingredient</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;remove&nbsp;an&nbsp;ingredient&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Remove&nbsp;Ingredient.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;remove&nbsp;existing&nbsp;ingredient.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;inventory&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-remove_item"><strong>remove_item</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;remove&nbsp;an&nbsp;item&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Remove.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;remove&nbsp;existing&nbsp;item.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;items&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-remove_vendor"><strong>remove_vendor</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;remove&nbsp;a&nbsp;vendor&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Remove.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;remove&nbsp;vendor.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;vendors&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-restock"><strong>restock</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;restock&nbsp;report&nbsp;of&nbsp;the&nbsp;inventory&nbsp;where&nbsp;items&nbsp;are&nbsp;low&nbsp;in&nbsp;stock.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;restock&nbsp;report&nbsp;page&nbsp;to&nbsp;display&nbsp;the&nbsp;table</span></dd></dl>
+ <dl><dt><a name="-retrieve_report"><strong>retrieve_report</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;sales&nbsp;report&nbsp;from&nbsp;orderhistory&nbsp;<br>
+where&nbsp;he&nbsp;can&nbsp;see&nbsp;the&nbsp;sales&nbsp;of&nbsp;a&nbsp;certain&nbsp;day.<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;sales&nbsp;report&nbsp;page&nbsp;to&nbsp;display&nbsp;the&nbsp;table</span></dd></dl>
+ <dl><dt><a name="-update_contact"><strong>update_contact</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;update&nbsp;an&nbsp;existing&nbsp;contact&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Update.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;update&nbsp;the&nbsp;existing&nbsp;Contact.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;contacts&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-update_employee"><strong>update_employee</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;update&nbsp;the&nbsp;information&nbsp;of&nbsp;an&nbsp;employee&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Update.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;update&nbsp;the&nbsp;information&nbsp;of&nbsp;an&nbsp;existing&nbsp;employee.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;employees&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-update_ingredient"><strong>update_ingredient</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;update&nbsp;an&nbsp;ingredient&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Update.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;update&nbsp;an&nbsp;existing&nbsp;ingredient.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;inventory&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-update_item"><strong>update_item</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;update&nbsp;an&nbsp;item&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Update.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;update&nbsp;the&nbsp;information&nbsp;of&nbsp;existing&nbsp;item.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;items&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-update_vendor"><strong>update_vendor</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;is&nbsp;called&nbsp;whenever&nbsp;the&nbsp;manager&nbsp;is&nbsp;trying&nbsp;to&nbsp;update&nbsp;the&nbsp;information&nbsp;of&nbsp;an&nbsp;existing&nbsp;vendor&nbsp;by&nbsp;pressing&nbsp;on&nbsp;the&nbsp;button&nbsp;Update.<br>
+It&nbsp;needs&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;database&nbsp;to&nbsp;update&nbsp;vendor.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;redirect&nbsp;html&nbsp;file&nbsp;to&nbsp;update&nbsp;vendors&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-vendors"><strong>vendors</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;vendors&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;table&nbsp;vendors<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;the&nbsp;vendors&nbsp;page</span></dd></dl>
+ <dl><dt><a name="-x_z_reports"><strong>x_z_reports</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;calls&nbsp;on&nbsp;X&nbsp;and&nbsp;Z&nbsp;reports&nbsp;to&nbsp;be&nbsp;displayed&nbsp;where&nbsp;it&nbsp;access&nbsp;the&nbsp;database&nbsp;and&nbsp;displays&nbsp;the&nbsp;tables<br>
+if&nbsp;the&nbsp;corresponding&nbsp;buttons&nbsp;have&nbsp;been&nbsp;pressed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;render&nbsp;html&nbsp;file&nbsp;to&nbsp;go&nbsp;to&nbsp;ztable</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>app</strong> = &lt;Flask 'app'&gt;<br>
+<strong>request</strong> = &lt;LocalProxy unbound&gt;</td></tr></table>
+</body></html>

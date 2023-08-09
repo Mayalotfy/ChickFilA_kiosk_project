@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module app</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">app</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/app.py">/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/app.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="Summary.html">Summary</a><br>
+</td><td class="multicolumn"><a href="psycopg2.html">psycopg2</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-adapt"><strong>adapt</strong></a>(...)</dt><dd><span class="code"><a href="#-adapt">adapt</a>(obj,&nbsp;protocol,&nbsp;alternate)&nbsp;-&gt;&nbsp;object&nbsp;--&nbsp;adapt&nbsp;obj&nbsp;to&nbsp;given&nbsp;protocol</span></dd></dl>
+ <dl><dt><a name="-add_ingredient"><strong>add_ingredient</strong></a>(item)</dt><dd><span class="code">Increments&nbsp;the&nbsp;quantity&nbsp;of&nbsp;the&nbsp;specified&nbsp;ingredient&nbsp;in&nbsp;the&nbsp;ingredients&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;by&nbsp;1.<br>
+&nbsp;<br>
+Parameters:<br>
+item&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;ingredient&nbsp;to&nbsp;increment&nbsp;the&nbsp;quantity&nbsp;of.</span></dd></dl>
+ <dl><dt><a name="-add_to_history"><strong>add_to_history</strong></a>(newOrder)</dt><dd><span class="code">Adds&nbsp;the&nbsp;items&nbsp;in&nbsp;the&nbsp;cart&nbsp;of&nbsp;the&nbsp;newOrder&nbsp;object&nbsp;to&nbsp;the&nbsp;orderhistory&nbsp;table&nbsp;in&nbsp;the&nbsp;database,&nbsp;along&nbsp;with&nbsp;the<br>
+customization&nbsp;and&nbsp;price&nbsp;of&nbsp;each&nbsp;item.<br>
+&nbsp;<br>
+Parameters:<br>
+newOrder&nbsp;(Order):&nbsp;The&nbsp;order&nbsp;object&nbsp;containing&nbsp;the&nbsp;cart&nbsp;items&nbsp;to&nbsp;add&nbsp;to&nbsp;the&nbsp;order&nbsp;history.</span></dd></dl>
+ <dl><dt><a name="-add_to_ztable"><strong>add_to_ztable</strong></a>(newOrder)</dt><dd><span class="code">Adds&nbsp;the&nbsp;items&nbsp;in&nbsp;the&nbsp;cart&nbsp;of&nbsp;the&nbsp;newOrder&nbsp;object&nbsp;to&nbsp;the&nbsp;ztable&nbsp;table&nbsp;in&nbsp;the&nbsp;database,&nbsp;along&nbsp;with&nbsp;the<br>
+customization&nbsp;and&nbsp;price&nbsp;of&nbsp;each&nbsp;item.<br>
+&nbsp;<br>
+Parameters:<br>
+newOrder&nbsp;(Order):&nbsp;The&nbsp;order&nbsp;object&nbsp;containing&nbsp;the&nbsp;cart&nbsp;items&nbsp;to&nbsp;add&nbsp;to&nbsp;the&nbsp;ztable.</span></dd></dl>
+ <dl><dt><a name="-db_connection"><strong>db_connection</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;creates&nbsp;a&nbsp;connection&nbsp;to&nbsp;a&nbsp;PostgreSQL&nbsp;database&nbsp;with&nbsp;the&nbsp;given<br>
+credentials&nbsp;and&nbsp;returns&nbsp;the&nbsp;connection&nbsp;object.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;psycopg2.extensions.connection:&nbsp;The&nbsp;connection&nbsp;object&nbsp;for&nbsp;the&nbsp;database</span></dd></dl>
+ <dl><dt><a name="-getCategoryNamesFromDatabase"><strong>getCategoryNamesFromDatabase</strong></a>()</dt><dd><span class="code">Retrieves&nbsp;a&nbsp;list&nbsp;of&nbsp;distinct&nbsp;category&nbsp;names&nbsp;from&nbsp;the&nbsp;items&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;and&nbsp;returns&nbsp;the&nbsp;list.</span></dd></dl>
+ <dl><dt><a name="-getItemsfromcategory"><strong>getItemsfromcategory</strong></a>(Category)</dt><dd><span class="code">Retrieves&nbsp;a&nbsp;list&nbsp;of&nbsp;item&nbsp;names&nbsp;from&nbsp;the&nbsp;items&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;that&nbsp;belong&nbsp;to&nbsp;the&nbsp;specified&nbsp;category,<br>
+and&nbsp;returns&nbsp;the&nbsp;list.<br>
+&nbsp;<br>
+Parameters:<br>
+Category&nbsp;(str):&nbsp;The&nbsp;category&nbsp;of&nbsp;items&nbsp;to&nbsp;retrieve.</span></dd></dl>
+ <dl><dt><a name="-get_add_value"><strong>get_add_value</strong></a>(extra_category, item)</dt><dd><span class="code">Retrieves&nbsp;the&nbsp;additional/remove&nbsp;value&nbsp;for&nbsp;the&nbsp;specified&nbsp;extra&nbsp;category&nbsp;and&nbsp;item&nbsp;from&nbsp;the&nbsp;extras&nbsp;table&nbsp;in&nbsp;the&nbsp;database,<br>
+and&nbsp;returns&nbsp;the&nbsp;value.<br>
+&nbsp;<br>
+Parameters:<br>
+extra_category&nbsp;(str):&nbsp;The&nbsp;category&nbsp;of&nbsp;the&nbsp;extra&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;value&nbsp;for.<br>
+item&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;item&nbsp;that&nbsp;the&nbsp;extra&nbsp;is&nbsp;associated&nbsp;with.</span></dd></dl>
+ <dl><dt><a name="-get_ingredients_from_item"><strong>get_ingredients_from_item</strong></a>(item)</dt><dd><span class="code">Retrieves&nbsp;a&nbsp;list&nbsp;of&nbsp;ingredients&nbsp;that&nbsp;are&nbsp;used&nbsp;in&nbsp;the&nbsp;specified&nbsp;item&nbsp;from&nbsp;the&nbsp;ingredientslist&nbsp;table&nbsp;in&nbsp;the<br>
+database&nbsp;and&nbsp;returns&nbsp;the&nbsp;list.<br>
+&nbsp;<br>
+Parameters:<br>
+item&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;item&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;ingredients&nbsp;for.</span></dd></dl>
+ <dl><dt><a name="-get_ordernumber"><strong>get_ordernumber</strong></a>()</dt><dd><span class="code">Retrieves&nbsp;the&nbsp;latest&nbsp;order&nbsp;number&nbsp;from&nbsp;the&nbsp;orderhistory&nbsp;table&nbsp;in&nbsp;the&nbsp;database,&nbsp;increments&nbsp;it&nbsp;by&nbsp;1,<br>
+and&nbsp;returns&nbsp;the&nbsp;new&nbsp;order&nbsp;number.&nbsp;If&nbsp;there&nbsp;is&nbsp;an&nbsp;error&nbsp;finding&nbsp;the&nbsp;order&nbsp;number,&nbsp;a&nbsp;message&nbsp;is&nbsp;printed<br>
+and&nbsp;the&nbsp;function&nbsp;returns&nbsp;0000&nbsp;as&nbsp;the&nbsp;order&nbsp;number.</span></dd></dl>
+ <dl><dt><a name="-get_timestamp"><strong>get_timestamp</strong></a>()</dt><dd><span class="code">Returns&nbsp;the&nbsp;current&nbsp;timestamp&nbsp;as&nbsp;a&nbsp;formatted&nbsp;string.</span></dd></dl>
+ <dl><dt><a name="-get_todaydate"><strong>get_todaydate</strong></a>()</dt><dd><span class="code">Returns&nbsp;the&nbsp;current&nbsp;date&nbsp;as&nbsp;a&nbsp;formatted&nbsp;string.</span></dd></dl>
+ <dl><dt><a name="-remove_ingredient"><strong>remove_ingredient</strong></a>(item)</dt><dd><span class="code">Decrements&nbsp;the&nbsp;quantity&nbsp;of&nbsp;the&nbsp;specified&nbsp;ingredient&nbsp;in&nbsp;the&nbsp;ingredients&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;by&nbsp;1.<br>
+&nbsp;<br>
+Parameters:<br>
+item&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;ingredient&nbsp;to&nbsp;decrement&nbsp;the&nbsp;quantity&nbsp;of.</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>app</strong> = &lt;Flask 'app'&gt;</td></tr></table>
+</body></html>

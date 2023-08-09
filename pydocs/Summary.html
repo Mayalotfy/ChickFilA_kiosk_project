@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module Summary</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">Summary</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/Summary.py">/Users/rishikaacharya/github-classroom/csce-331-ritchey-2023a/project3_iota_flask/Summary.py</a></td></tr></table>
+    <p><span class="code">#import&nbsp;psycopg2</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="app.html">app</a><br>
+</td><td class="multicolumn"><a href="ast.html">ast</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="Summary.html#Summary">Summary</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Summary">class <strong>Summary</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Summary">Summary</a>(cartItem)<br>
+&nbsp;<br>
+<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Summary-__init__"><strong>__init__</strong></a>(self, cartItem)</dt><dd><span class="code">Creates&nbsp;a&nbsp;<a href="#Summary">Summary</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;with&nbsp;the&nbsp;following&nbsp;properties:<br>
+-&nbsp;ordernumber:&nbsp;a&nbsp;unique&nbsp;order&nbsp;number<br>
+-&nbsp;cartItem:&nbsp;a&nbsp;dictionary&nbsp;representing&nbsp;the&nbsp;items&nbsp;in&nbsp;the&nbsp;cart<br>
+-&nbsp;total:&nbsp;the&nbsp;total&nbsp;cost&nbsp;of&nbsp;all&nbsp;items&nbsp;in&nbsp;the&nbsp;cart<br>
+-&nbsp;tax:&nbsp;the&nbsp;tax&nbsp;on&nbsp;the&nbsp;total&nbsp;cost&nbsp;of&nbsp;all&nbsp;items&nbsp;in&nbsp;the&nbsp;cart<br>
+-&nbsp;subtotal:&nbsp;the&nbsp;total&nbsp;cost&nbsp;of&nbsp;all&nbsp;items&nbsp;in&nbsp;the&nbsp;cart&nbsp;plus&nbsp;tax<br>
+-&nbsp;Cart_num:&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;items&nbsp;in&nbsp;the&nbsp;cart<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cartItem&nbsp;(dict):&nbsp;a&nbsp;dictionary&nbsp;representing&nbsp;the&nbsp;items&nbsp;in&nbsp;the&nbsp;cart,&nbsp;with&nbsp;item&nbsp;names&nbsp;as&nbsp;keys&nbsp;and&nbsp;a&nbsp;list&nbsp;of&nbsp;selected&nbsp;extras&nbsp;as&nbsp;values</span></dd></dl>
+
+<dl><dt><a name="Summary-close"><strong>close</strong></a>(self)</dt><dd><span class="code">Clears&nbsp;the&nbsp;cart&nbsp;and&nbsp;updates&nbsp;the&nbsp;ingredients&nbsp;based&nbsp;on&nbsp;the&nbsp;cart&nbsp;items.&nbsp;Also&nbsp;adds&nbsp;the&nbsp;current&nbsp;cart&nbsp;to&nbsp;order&nbsp;history&nbsp;<br>
+and&nbsp;z-table.</span></dd></dl>
+
+<dl><dt><a name="Summary-getPrice"><strong>getPrice</strong></a>(self, key, value)</dt><dd><span class="code">Calculates&nbsp;the&nbsp;price&nbsp;of&nbsp;an&nbsp;item&nbsp;based&nbsp;on&nbsp;its&nbsp;key&nbsp;and&nbsp;value.<br>
+&nbsp;<br>
+:param&nbsp;key:&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;item.<br>
+:type&nbsp;key:&nbsp;str<br>
+:param&nbsp;value:&nbsp;The&nbsp;list&nbsp;of&nbsp;values&nbsp;selected&nbsp;for&nbsp;the&nbsp;item.<br>
+:type&nbsp;value:&nbsp;list<br>
+:return:&nbsp;The&nbsp;total&nbsp;price&nbsp;of&nbsp;the&nbsp;item.<br>
+:rtype:&nbsp;float</span></dd></dl>
+
+<dl><dt><a name="Summary-get_cartItem"><strong>get_cartItem</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Summary-get_cartnum"><strong>get_cartnum</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Summary-get_tax"><strong>get_tax</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Summary-get_total"><strong>get_total</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-login_is_required"><strong>login_is_required</strong></a>(function)</dt></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>session</strong> = &lt;LocalProxy unbound&gt;</td></tr></table>
+</body></html>
